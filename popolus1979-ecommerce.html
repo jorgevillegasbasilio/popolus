@@ -1,0 +1,1205 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>POPOLUS 1979 — Lujo con Historia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --granate: #38090B;
+  --granate-medio: #5a1215;
+  --granate-claro: #7a1a1e;
+  --dorado: #d8a95e;
+  --dorado-claro: #e8c47a;
+  --dorado-oscuro: #b8863a;
+  --crema: #f5f0e8;
+  --crema-oscuro: #ede6d6;
+  --negro: #0a0608;
+  --blanco: #fdfaf5;
+}
+
+html { scroll-behavior: smooth; }
+body { font-family: 'Montserrat', sans-serif; background: var(--blanco); color: var(--negro); overflow-x: hidden; }
+
+/* ── ANNOUNCEMENT BAR ── */
+.announcement {
+  background: var(--granate);
+  text-align: center;
+  padding: 10px 1rem;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--dorado);
+  border-bottom: 0.5px solid rgba(216,169,94,0.2);
+}
+
+/* ── NAV ── */
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 3rem;
+  height: 72px;
+  background: rgba(13,2,3,0.97);
+  backdrop-filter: blur(12px);
+  border-bottom: 0.5px solid rgba(216,169,94,0.2);
+}
+
+.nav-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; cursor: pointer; }
+.nav-logo-p { font-family: 'Playfair Display', serif; font-size: 28px; color: var(--dorado); line-height: 1; letter-spacing: -1px; }
+.nav-logo-text { display: flex; flex-direction: column; }
+.nav-logo-text span:first-child { font-size: 11px; font-weight: 600; letter-spacing: 4px; color: var(--dorado); text-transform: uppercase; }
+.nav-logo-text span:last-child { font-size: 9px; font-weight: 300; letter-spacing: 3px; color: rgba(216,169,94,0.6); text-transform: uppercase; }
+
+.nav-links { display: flex; gap: 2.5rem; list-style: none; }
+.nav-links a { font-size: 11px; font-weight: 500; letter-spacing: 2.5px; text-transform: uppercase; color: rgba(253,250,245,0.7); text-decoration: none; transition: color 0.3s; cursor: pointer; }
+.nav-links a:hover { color: var(--dorado); }
+
+.nav-right { display: flex; align-items: center; gap: 1.5rem; }
+
+.nav-cart-btn {
+  position: relative;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+  color: rgba(253,250,245,0.7);
+  transition: color 0.3s;
+  padding: 6px;
+}
+.nav-cart-btn:hover { color: var(--dorado); }
+
+.cart-count {
+  position: absolute;
+  top: 0; right: 0;
+  background: var(--dorado);
+  color: var(--negro);
+  font-size: 9px;
+  font-weight: 700;
+  width: 16px; height: 16px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0;
+  transform: scale(0);
+  transition: all 0.2s;
+}
+.cart-count.visible { opacity: 1; transform: scale(1); }
+
+.nav-cta { font-size: 10px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--negro) !important; background: var(--dorado); padding: 9px 20px; border-radius: 1px; text-decoration: none; transition: background 0.3s; cursor: pointer; border: none; }
+.nav-cta:hover { background: var(--dorado-claro) !important; }
+
+/* ── PAGES ── */
+.page { display: none; }
+.page.active { display: block; }
+
+/* ── HERO ── */
+.hero {
+  height: 100vh; min-height: 700px;
+  background: var(--granate);
+  display: flex; align-items: center; justify-content: center;
+  position: relative; overflow: hidden;
+}
+.hero-bg-pattern {
+  position: absolute; inset: 0;
+  background-image:
+    radial-gradient(ellipse 80% 60% at 50% 50%, rgba(216,169,94,0.06) 0%, transparent 70%),
+    repeating-linear-gradient(45deg, transparent, transparent 40px, rgba(216,169,94,0.015) 40px, rgba(216,169,94,0.015) 41px);
+}
+.hero-line-top { position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, transparent, var(--dorado), transparent); opacity: 0.5; }
+.hero-content { text-align: center; position: relative; z-index: 2; animation: fadeUp 1.2s ease both; }
+
+@keyframes fadeUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+
+.hero-eyebrow { font-size: 10px; font-weight: 500; letter-spacing: 6px; text-transform: uppercase; color: var(--dorado); opacity: 0.8; margin-bottom: 2rem; }
+.hero-monogram { font-family: 'Playfair Display', serif; font-size: clamp(100px,18vw,200px); color: var(--dorado); line-height: 1; display: block; margin-bottom: 0.5rem; opacity: 0.9; text-shadow: 0 0 80px rgba(216,169,94,0.2); }
+.hero-name { font-family: 'Montserrat', sans-serif; font-size: clamp(22px,4vw,38px); font-weight: 300; letter-spacing: 14px; text-transform: uppercase; color: var(--crema); margin-bottom: 0.5rem; }
+.hero-year { font-size: 12px; font-weight: 400; letter-spacing: 6px; color: rgba(216,169,94,0.5); margin-bottom: 2.5rem; }
+.hero-divider { display: flex; align-items: center; justify-content: center; gap: 1.5rem; margin-bottom: 2.5rem; }
+.hero-divider::before, .hero-divider::after { content: ''; display: block; width: 60px; height: 0.5px; background: var(--dorado); opacity: 0.5; }
+.hero-divider span { font-size: 9px; letter-spacing: 4px; text-transform: uppercase; color: var(--dorado); opacity: 0.7; }
+.hero-claim { font-family: 'Playfair Display', serif; font-size: clamp(16px,2.5vw,22px); font-style: italic; color: rgba(245,240,232,0.75); margin-bottom: 3rem; }
+.hero-buttons { display: flex; gap: 1.5rem; justify-content: center; }
+
+.btn-primary { font-size: 10px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; background: var(--dorado); color: var(--negro); padding: 14px 36px; text-decoration: none; border-radius: 1px; transition: all 0.3s; cursor: pointer; border: none; display: inline-block; }
+.btn-primary:hover { background: var(--dorado-claro); transform: translateY(-2px); }
+.btn-outline { font-size: 10px; font-weight: 500; letter-spacing: 3px; text-transform: uppercase; border: 0.5px solid rgba(216,169,94,0.5); color: var(--dorado); padding: 14px 36px; text-decoration: none; border-radius: 1px; transition: all 0.3s; cursor: pointer; background: none; display: inline-block; }
+.btn-outline:hover { border-color: var(--dorado); background: rgba(216,169,94,0.08); transform: translateY(-2px); }
+
+.hero-scroll { position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.hero-scroll span { font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: rgba(216,169,94,0.5); }
+.scroll-line { width: 0.5px; height: 40px; background: linear-gradient(180deg, var(--dorado), transparent); animation: scrollPulse 2s ease-in-out infinite; }
+@keyframes scrollPulse { 0%,100% { opacity:0.4; } 50% { opacity:1; } }
+
+/* ── SECTION BASE ── */
+section { padding: 8rem 2rem; }
+.section-inner { max-width: 1100px; margin: 0 auto; }
+.section-label { font-size: 9px; font-weight: 600; letter-spacing: 5px; text-transform: uppercase; color: var(--dorado); margin-bottom: 1.5rem; }
+.section-title { font-family: 'Playfair Display', serif; font-size: clamp(30px,5vw,52px); font-weight: 400; color: var(--granate); line-height: 1.2; margin-bottom: 1.5rem; }
+.section-lead { font-size: 16px; font-weight: 300; line-height: 1.9; color: #3a3035; max-width: 640px; }
+
+/* ── TIENDA ── */
+.tienda-page { background: var(--blanco); min-height: 100vh; padding-top: 0; }
+
+.tienda-hero {
+  background: var(--granate);
+  padding: 5rem 3rem 4rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.tienda-hero::before {
+  content: 'TIENDA';
+  position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%);
+  font-family: 'Playfair Display', serif;
+  font-size: 200px; font-weight: 700;
+  color: rgba(216,169,94,0.04);
+  white-space: nowrap;
+  pointer-events: none;
+}
+.tienda-hero .section-label { color: rgba(216,169,94,0.8); }
+.tienda-hero .section-title { color: var(--crema); margin: 0 auto 1rem; }
+.tienda-hero p { color: rgba(245,240,232,0.6); font-size: 14px; font-weight: 300; letter-spacing: 1px; }
+
+.tienda-body { max-width: 1200px; margin: 0 auto; padding: 4rem 2rem; display: grid; grid-template-columns: 260px 1fr; gap: 4rem; align-items: start; }
+
+/* Filtros */
+.filtros { position: sticky; top: 90px; }
+.filtros-titulo { font-size: 9px; font-weight: 600; letter-spacing: 4px; text-transform: uppercase; color: var(--granate); margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 0.5px solid rgba(56,9,11,0.15); }
+.filtro-grupo { margin-bottom: 2rem; }
+.filtro-grupo-titulo { font-size: 9px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--dorado-oscuro); margin-bottom: 1rem; }
+.filtro-opcion { display: flex; align-items: center; gap: 10px; padding: 6px 0; cursor: pointer; }
+.filtro-opcion input { accent-color: var(--granate); cursor: pointer; }
+.filtro-opcion label { font-size: 12px; font-weight: 400; color: #555; cursor: pointer; transition: color 0.2s; }
+.filtro-opcion:hover label { color: var(--granate); }
+.filtro-precio { display: flex; gap: 0.75rem; align-items: center; }
+.filtro-precio input { flex: 1; font-family: 'Montserrat', sans-serif; font-size: 12px; background: var(--crema-oscuro); border: 0.5px solid rgba(56,9,11,0.15); color: var(--negro); padding: 8px 10px; border-radius: 1px; outline: none; }
+.filtro-precio span { font-size: 11px; color: #888; }
+.btn-filtrar { width: 100%; margin-top: 1.5rem; font-size: 9px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; background: var(--granate); color: var(--dorado); border: none; padding: 12px; cursor: pointer; border-radius: 1px; transition: background 0.3s; }
+.btn-filtrar:hover { background: var(--granate-medio); }
+
+/* Grid productos */
+.productos-zona { }
+.productos-toolbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 0.5px solid rgba(56,9,11,0.1); }
+.productos-count { font-size: 11px; color: #888; letter-spacing: 1px; }
+.productos-sort { font-family: 'Montserrat', sans-serif; font-size: 11px; background: none; border: 0.5px solid rgba(56,9,11,0.2); color: var(--negro); padding: 8px 12px; border-radius: 1px; outline: none; cursor: pointer; }
+
+.productos-grid-tienda { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+
+.prod-card {
+  cursor: pointer;
+  transition: transform 0.35s;
+}
+.prod-card:hover { transform: translateY(-6px); }
+
+.prod-img-wrap {
+  position: relative;
+  aspect-ratio: 3/4;
+  border-radius: 2px;
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+
+/* Imágenes ficticias con SVG inline */
+.prod-img-svg {
+  width: 100%; height: 100%;
+  display: flex; align-items: center; justify-content: center;
+}
+
+.prod-badge {
+  position: absolute; top: 12px; left: 12px;
+  font-size: 8px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+  padding: 4px 10px; border-radius: 1px;
+}
+.badge-nuevo { background: var(--granate); color: var(--dorado); }
+.badge-exclusivo { background: var(--dorado); color: var(--negro); }
+.badge-medida { background: var(--negro); color: var(--dorado); }
+
+.prod-quick {
+  position: absolute; bottom: -48px; left: 0; right: 0;
+  background: rgba(56,9,11,0.92);
+  border: none; color: var(--dorado);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 9px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase;
+  padding: 14px; cursor: pointer;
+  transition: bottom 0.3s ease;
+}
+.prod-card:hover .prod-quick { bottom: 0; }
+
+.prod-cat { font-size: 9px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--dorado-oscuro); margin-bottom: 0.3rem; }
+.prod-nombre { font-family: 'Playfair Display', serif; font-size: 17px; font-weight: 400; color: var(--granate); margin-bottom: 0.25rem; }
+.prod-precio { font-size: 14px; font-weight: 500; color: var(--negro); }
+.prod-precio-original { font-size: 12px; color: #aaa; text-decoration: line-through; margin-left: 6px; }
+
+/* ── MODAL PRODUCTO ── */
+.modal-overlay {
+  position: fixed; inset: 0; z-index: 500;
+  background: rgba(10,6,8,0.75);
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.3s;
+  padding: 2rem;
+}
+.modal-overlay.open { opacity: 1; pointer-events: all; }
+
+.modal {
+  background: var(--blanco);
+  max-width: 900px; width: 100%;
+  display: grid; grid-template-columns: 1fr 1fr;
+  border-radius: 2px;
+  overflow: hidden;
+  transform: translateY(30px);
+  transition: transform 0.3s;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+.modal-overlay.open .modal { transform: translateY(0); }
+
+.modal-img { background: var(--crema-oscuro); display: flex; align-items: center; justify-content: center; min-height: 450px; }
+.modal-img svg { width: 60%; height: 60%; }
+
+.modal-info { padding: 3rem 2.5rem; display: flex; flex-direction: column; gap: 1rem; }
+.modal-cat { font-size: 9px; font-weight: 600; letter-spacing: 4px; text-transform: uppercase; color: var(--dorado-oscuro); }
+.modal-nombre { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 400; color: var(--granate); line-height: 1.2; }
+.modal-precio { font-size: 22px; font-weight: 500; color: var(--negro); }
+.modal-desc { font-size: 13px; font-weight: 300; line-height: 1.9; color: #555; border-top: 0.5px solid rgba(56,9,11,0.1); padding-top: 1rem; }
+.modal-detalles { font-size: 11px; color: #888; line-height: 1.8; }
+.modal-detalles strong { color: var(--granate); font-weight: 500; }
+
+.modal-tallas { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.talla-btn { font-size: 10px; font-weight: 500; letter-spacing: 1px; border: 0.5px solid rgba(56,9,11,0.25); background: none; color: var(--negro); padding: 7px 14px; cursor: pointer; border-radius: 1px; transition: all 0.2s; }
+.talla-btn:hover, .talla-btn.selected { background: var(--granate); color: var(--dorado); border-color: var(--granate); }
+
+.modal-add {
+  background: var(--granate); color: var(--dorado);
+  border: none; font-family: 'Montserrat', sans-serif;
+  font-size: 10px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase;
+  padding: 16px; cursor: pointer; border-radius: 1px;
+  transition: background 0.3s;
+  margin-top: auto;
+}
+.modal-add:hover { background: var(--granate-medio); }
+
+.modal-close {
+  position: absolute; top: 1rem; right: 1rem;
+  background: none; border: none; font-size: 24px;
+  cursor: pointer; color: #888;
+  width: 36px; height: 36px;
+  display: flex; align-items: center; justify-content: center;
+}
+
+/* ── CARRITO DRAWER ── */
+.cart-drawer {
+  position: fixed; top: 0; right: -440px; width: 420px; height: 100vh;
+  background: var(--blanco);
+  z-index: 400;
+  transition: right 0.35s cubic-bezier(0.4,0,0.2,1);
+  display: flex; flex-direction: column;
+  box-shadow: -4px 0 30px rgba(0,0,0,0.15);
+}
+.cart-drawer.open { right: 0; }
+
+.cart-overlay {
+  position: fixed; inset: 0; z-index: 399;
+  background: rgba(10,6,8,0.5);
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.35s;
+}
+.cart-overlay.open { opacity: 1; pointer-events: all; }
+
+.cart-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1.5rem 2rem;
+  border-bottom: 0.5px solid rgba(56,9,11,0.1);
+  background: var(--granate);
+}
+.cart-title { font-family: 'Playfair Display', serif; font-size: 20px; color: var(--dorado); }
+.cart-close { background: none; border: none; font-size: 22px; color: rgba(216,169,94,0.6); cursor: pointer; transition: color 0.2s; }
+.cart-close:hover { color: var(--dorado); }
+
+.cart-items-list { flex: 1; overflow-y: auto; padding: 1.5rem 2rem; display: flex; flex-direction: column; gap: 1.25rem; }
+
+.cart-item { display: flex; gap: 1rem; align-items: flex-start; }
+.cart-item-img { width: 70px; height: 90px; background: var(--crema-oscuro); border-radius: 1px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+.cart-item-img svg { width: 80%; height: 80%; }
+.cart-item-info { flex: 1; }
+.cart-item-cat { font-size: 8px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--dorado-oscuro); margin-bottom: 2px; }
+.cart-item-name { font-family: 'Playfair Display', serif; font-size: 14px; color: var(--granate); margin-bottom: 4px; }
+.cart-item-talla { font-size: 10px; color: #888; margin-bottom: 8px; }
+.cart-item-bottom { display: flex; align-items: center; justify-content: space-between; }
+.cart-item-precio { font-size: 14px; font-weight: 500; }
+.cart-item-remove { background: none; border: none; font-size: 16px; color: #ccc; cursor: pointer; transition: color 0.2s; }
+.cart-item-remove:hover { color: var(--granate); }
+
+.cart-empty { text-align: center; padding: 4rem 2rem; color: #aaa; }
+.cart-empty-icon { font-size: 40px; margin-bottom: 1rem; opacity: 0.3; }
+.cart-empty p { font-size: 13px; font-weight: 300; line-height: 1.7; }
+
+.cart-footer { padding: 1.5rem 2rem; border-top: 0.5px solid rgba(56,9,11,0.1); background: var(--crema); }
+.cart-subtotal { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.75rem; }
+.cart-subtotal span:first-child { font-size: 10px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: #888; }
+.cart-subtotal span:last-child { font-family: 'Playfair Display', serif; font-size: 22px; color: var(--granate); }
+.cart-nota { font-size: 10px; color: #aaa; margin-bottom: 1.25rem; line-height: 1.5; }
+.cart-checkout { width: 100%; background: var(--granate); color: var(--dorado); border: none; font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; padding: 16px; cursor: pointer; border-radius: 1px; transition: background 0.3s; }
+.cart-checkout:hover { background: var(--granate-medio); }
+
+/* ── HISTORIA ── */
+.historia { background: var(--crema); position: relative; overflow: hidden; }
+.historia::before { content: 'POPOLUS'; position: absolute; right: -2rem; top: 50%; transform: translateY(-50%); font-family: 'Playfair Display', serif; font-size: 180px; font-weight: 700; color: rgba(56,9,11,0.04); pointer-events: none; line-height: 1; }
+.historia-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center; }
+.historia-stat-group { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 3rem; }
+.stat-box { background: var(--granate); padding: 2rem 1.5rem; border-radius: 2px; }
+.stat-number { font-family: 'Playfair Display', serif; font-size: 42px; font-weight: 400; color: var(--dorado); line-height: 1; margin-bottom: 0.5rem; }
+.stat-label { font-size: 9px; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase; color: rgba(245,240,232,0.6); }
+.historia-img-wrapper { background: var(--granate); aspect-ratio: 4/5; border-radius: 2px; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+.historia-img-wrapper::after { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at center, rgba(216,169,94,0.08) 0%, transparent 70%); }
+.historia-monogram { font-family: 'Playfair Display', serif; font-size: 180px; color: rgba(216,169,94,0.15); line-height: 1; position: relative; z-index: 1; }
+.historia-badge { position: absolute; bottom: -1.5rem; right: -1.5rem; background: var(--dorado); width: 90px; height: 90px; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 2; }
+.historia-badge span:first-child { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 700; color: var(--granate); line-height: 1; }
+.historia-badge span:last-child { font-size: 7px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(56,9,11,0.7); }
+
+/* ── VALORES ── */
+.valores { background: var(--granate); }
+.valores .section-title { color: var(--crema); }
+.valores .section-label { color: rgba(216,169,94,0.8); }
+.valores .section-lead { color: rgba(245,240,232,0.65); }
+.valores-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5px; margin-top: 4rem; background: rgba(216,169,94,0.15); border: 0.5px solid rgba(216,169,94,0.15); }
+.valor-card { background: var(--granate); padding: 3rem 2.5rem; transition: background 0.3s; }
+.valor-card:hover { background: var(--granate-medio); }
+.valor-number { font-family: 'Playfair Display', serif; font-size: 48px; color: rgba(216,169,94,0.18); line-height: 1; margin-bottom: 1.5rem; }
+.valor-title { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 400; color: var(--dorado); margin-bottom: 1rem; }
+.valor-text { font-size: 13px; font-weight: 300; line-height: 1.9; color: rgba(245,240,232,0.6); }
+
+/* ── CATEGORÍAS HOME ── */
+.categorias { background: var(--blanco); }
+.categorias-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 1.5rem; margin-top: 4rem; }
+.cat-card { cursor: pointer; position: relative; aspect-ratio: 3/4; border-radius: 2px; overflow: hidden; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; padding: 1.5rem; transition: transform 0.35s; }
+.cat-card:hover { transform: translateY(-6px); }
+.cat-card::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 40%, rgba(56,9,11,0.75) 100%); }
+.cat-card-bg { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+.cat-card-content { position: relative; z-index: 1; text-align: center; }
+.cat-card-nombre { font-family: 'Playfair Display', serif; font-size: 18px; color: var(--crema); margin-bottom: 0.25rem; }
+.cat-card-sub { font-size: 9px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; color: rgba(216,169,94,0.8); }
+
+/* ── SERVICIOS ── */
+.servicios { background: var(--crema); }
+.servicios-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: start; margin-top: 4rem; }
+.servicio-list { display: flex; flex-direction: column; gap: 0; }
+.servicio-item { display: flex; align-items: center; gap: 1.5rem; padding: 1.5rem 0; border-bottom: 0.5px solid rgba(56,9,11,0.12); cursor: pointer; transition: padding-left 0.3s; }
+.servicio-item:hover { padding-left: 0.5rem; }
+.servicio-item:first-child { border-top: 0.5px solid rgba(56,9,11,0.12); }
+.servicio-icon { width: 40px; height: 40px; background: var(--granate); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 16px; color: var(--dorado); }
+.servicio-name { font-family: 'Playfair Display', serif; font-size: 17px; color: var(--granate); }
+.servicio-detail { background: var(--granate); padding: 4rem; border-radius: 2px; }
+.servicio-detail-title { font-family: 'Playfair Display', serif; font-size: 30px; font-weight: 400; font-style: italic; color: var(--dorado); margin-bottom: 1.5rem; line-height: 1.3; }
+.servicio-detail-text { font-size: 14px; font-weight: 300; line-height: 2; color: rgba(245,240,232,0.7); margin-bottom: 2rem; }
+.servicio-tags { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+.tag { font-size: 9px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; border: 0.5px solid rgba(216,169,94,0.4); color: rgba(216,169,94,0.7); padding: 7px 14px; border-radius: 1px; }
+
+/* ── CONTACTO ── */
+.contacto { background: var(--negro); position: relative; overflow: hidden; }
+.contacto::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 70% 70% at 50% 50%, rgba(56,9,11,0.8) 0%, transparent 100%); }
+.contacto .section-inner { position: relative; z-index: 1; }
+.contacto .section-title { color: var(--crema); }
+.contacto .section-label { color: rgba(216,169,94,0.8); }
+.contacto .section-lead { color: rgba(245,240,232,0.55); }
+.contacto-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; margin-top: 5rem; align-items: start; }
+.contacto-info { display: flex; flex-direction: column; gap: 2.5rem; }
+.contacto-item-label { font-size: 9px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--dorado); margin-bottom: 0.5rem; }
+.contacto-item-value { font-family: 'Playfair Display', serif; font-size: 18px; color: rgba(245,240,232,0.85); }
+.contacto-form { display: flex; flex-direction: column; gap: 1.25rem; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.form-group { display: flex; flex-direction: column; gap: 0.5rem; }
+.form-label { font-size: 9px; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase; color: rgba(216,169,94,0.7); }
+.form-input { font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 300; background: rgba(245,240,232,0.05); border: 0.5px solid rgba(216,169,94,0.2); color: var(--crema); padding: 14px 16px; border-radius: 1px; outline: none; transition: border-color 0.3s; resize: none; }
+.form-input::placeholder { color: rgba(245,240,232,0.2); }
+.form-input:focus { border-color: rgba(216,169,94,0.5); }
+.form-btn { font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; background: var(--dorado); color: var(--negro); border: none; padding: 16px 40px; cursor: pointer; border-radius: 1px; transition: all 0.3s; align-self: flex-start; }
+.form-btn:hover { background: var(--dorado-claro); transform: translateY(-2px); }
+
+/* ── FOOTER ── */
+footer { background: var(--granate); padding: 3rem 2rem; border-top: 0.5px solid rgba(216,169,94,0.2); }
+.footer-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 2rem; flex-wrap: wrap; }
+.footer-logo { display: flex; align-items: center; gap: 10px; }
+.footer-logo-p { font-family: 'Playfair Display', serif; font-size: 28px; color: var(--dorado); }
+.footer-logo-name { font-size: 10px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: rgba(216,169,94,0.7); }
+.footer-copy { font-size: 11px; font-weight: 300; letter-spacing: 1px; color: rgba(245,240,232,0.3); }
+.footer-social { display: flex; gap: 1.5rem; }
+.footer-social a { font-size: 10px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; color: rgba(216,169,94,0.5); text-decoration: none; transition: color 0.3s; }
+.footer-social a:hover { color: var(--dorado); }
+
+/* ── TOAST ── */
+.toast { position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%) translateY(20px); background: var(--granate); color: var(--dorado); font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; padding: 14px 28px; border-radius: 1px; z-index: 600; opacity: 0; transition: all 0.3s; white-space: nowrap; border: 0.5px solid rgba(216,169,94,0.3); }
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+/* ── SCROLL REVEAL ── */
+.reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease, transform 0.8s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  nav { padding: 0 1.5rem; }
+  .nav-links { display: none; }
+  .historia-grid, .servicios-grid, .contacto-grid { grid-template-columns: 1fr; gap: 3rem; }
+  .categorias-grid { grid-template-columns: repeat(2,1fr); }
+  .tienda-body { grid-template-columns: 1fr; }
+  .filtros { position: static; }
+  .productos-grid-tienda { grid-template-columns: repeat(2,1fr); }
+  .valores-grid { grid-template-columns: 1fr; }
+  .modal { grid-template-columns: 1fr; }
+  .modal-img { min-height: 250px; }
+  .cart-drawer { width: 100%; right: -100%; }
+}
+@media (max-width: 500px) {
+  section { padding: 5rem 1.25rem; }
+  .productos-grid-tienda { grid-template-columns: 1fr; }
+  .form-row { grid-template-columns: 1fr; }
+  .hero-buttons { flex-direction: column; align-items: center; }
+  .tienda-hero { padding: 3rem 1.25rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="announcement">✦ Envío gratuito en pedidos superiores a 150€ · Colección Primavera 2025 disponible ✦</div>
+
+<!-- ── NAV ── -->
+<nav>
+  <a class="nav-logo" onclick="showPage('home')">
+    <span class="nav-logo-p">𝕻</span>
+    <div class="nav-logo-text">
+      <span>Popolus</span>
+      <span>Lujo con Historia</span>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a onclick="showPage('home')">Inicio</a></li>
+    <li><a onclick="showPage('tienda')">Tienda</a></li>
+    <li><a onclick="showPage('home'); setTimeout(()=>document.getElementById('historia').scrollIntoView({behavior:'smooth'}),100)">Historia</a></li>
+    <li><a onclick="showPage('home'); setTimeout(()=>document.getElementById('servicios').scrollIntoView({behavior:'smooth'}),100)">Servicios</a></li>
+    <li><a onclick="showPage('home'); setTimeout(()=>document.getElementById('contacto').scrollIntoView({behavior:'smooth'}),100)">Contacto</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="nav-cart-btn" onclick="toggleCart()">
+      🛍
+      <span class="cart-count" id="cartCount">0</span>
+    </button>
+    <button class="nav-cta" onclick="showPage('tienda')">Ver Tienda</button>
+  </div>
+</nav>
+
+<!-- ── HOME PAGE ── -->
+<div class="page active" id="page-home">
+
+  <!-- HERO -->
+  <section class="hero" id="inicio">
+    <div class="hero-bg-pattern"></div>
+    <div class="hero-line-top"></div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">Jerez de la Frontera · Desde 1979</p>
+      <span class="hero-monogram">𝕻</span>
+      <h1 class="hero-name">Popolus</h1>
+      <p class="hero-year">— 1 9 7 9 —</p>
+      <div class="hero-divider"><span>Lujo con Historia</span></div>
+      <p class="hero-claim">Tradición, artesanía y exclusividad en cada pieza</p>
+      <div class="hero-buttons">
+        <button class="btn-primary" onclick="showPage('tienda')">Descubrir colecciones</button>
+        <button class="btn-outline" onclick="document.getElementById('servicios').scrollIntoView({behavior:'smooth'})">Nuestros servicios</button>
+      </div>
+    </div>
+    <div class="hero-scroll"><span>Descubrir</span><div class="scroll-line"></div></div>
+  </section>
+
+  <!-- CATEGORÍAS -->
+  <section class="categorias reveal">
+    <div class="section-inner">
+      <p class="section-label">Nuestras colecciones</p>
+      <h2 class="section-title">Cada pieza, una historia</h2>
+      <div class="categorias-grid">
+
+        <div class="cat-card" onclick="showPage('tienda')" style="background:#2a0608;">
+          <div class="cat-card-bg">
+            <svg viewBox="0 0 200 260" width="120" opacity="0.6">
+              <rect x="40" y="80" width="120" height="90" rx="4" fill="none" stroke="#d8a95e" stroke-width="2"/>
+              <path d="M70 80 Q100 40 130 80" fill="none" stroke="#d8a95e" stroke-width="2"/>
+              <rect x="60" y="175" width="80" height="5" rx="2" fill="#d8a95e" opacity="0.5"/>
+              <circle cx="100" cy="125" r="8" fill="none" stroke="#d8a95e" stroke-width="1.5"/>
+            </svg>
+          </div>
+          <div class="cat-card-content">
+            <p class="cat-card-nombre">Marroquinería</p>
+            <p class="cat-card-sub">Bolsos · Carteras · Cinturones</p>
+          </div>
+        </div>
+
+        <div class="cat-card" onclick="showPage('tienda')" style="background:#1a1208;">
+          <div class="cat-card-bg">
+            <svg viewBox="0 0 200 260" width="100" opacity="0.6">
+              <circle cx="100" cy="90" r="35" fill="none" stroke="#d8a95e" stroke-width="2"/>
+              <circle cx="100" cy="90" r="20" fill="none" stroke="#d8a95e" stroke-width="1"/>
+              <line x1="100" y1="55" x2="100" y2="40" stroke="#d8a95e" stroke-width="2"/>
+              <line x1="75" y1="63" x2="65" y2="52" stroke="#d8a95e" stroke-width="1.5"/>
+              <line x1="125" y1="63" x2="135" y2="52" stroke="#d8a95e" stroke-width="1.5"/>
+              <ellipse cx="100" cy="90" rx="8" ry="8" fill="#d8a95e" opacity="0.4"/>
+              <rect x="80" y="125" width="40" height="60" rx="2" fill="none" stroke="#d8a95e" stroke-width="1.5"/>
+            </svg>
+          </div>
+          <div class="cat-card-content">
+            <p class="cat-card-nombre">Joyería de Lujo</p>
+            <p class="cat-card-sub">Collares · Anillos · Pulseras</p>
+          </div>
+        </div>
+
+        <div class="cat-card" onclick="showPage('tienda')" style="background:#0f1a20;">
+          <div class="cat-card-bg">
+            <svg viewBox="0 0 200 260" width="110" opacity="0.6">
+              <ellipse cx="100" cy="70" rx="70" ry="30" fill="none" stroke="#d8a95e" stroke-width="2"/>
+              <rect x="85" y="70" width="30" height="80" fill="none" stroke="#d8a95e" stroke-width="2"/>
+              <rect x="70" y="148" width="60" height="8" rx="2" fill="#d8a95e" opacity="0.3"/>
+            </svg>
+          </div>
+          <div class="cat-card-content">
+            <p class="cat-card-nombre">Sombreros</p>
+            <p class="cat-card-sub">Pamelas · Tocados · Fascinators</p>
+          </div>
+        </div>
+
+        <div class="cat-card" onclick="showPage('tienda')" style="background:#1a0d15;">
+          <div class="cat-card-bg">
+            <svg viewBox="0 0 200 260" width="100" opacity="0.6">
+              <path d="M40 60 Q100 100 160 60 L150 200 Q100 220 50 200 Z" fill="none" stroke="#d8a95e" stroke-width="2"/>
+              <path d="M70 80 Q100 110 130 80" fill="none" stroke="#d8a95e" stroke-width="1.5"/>
+              <path d="M60 120 Q100 145 140 120" fill="none" stroke="#d8a95e" stroke-width="1"/>
+              <path d="M55 155 Q100 175 145 155" fill="none" stroke="#d8a95e" stroke-width="1"/>
+            </svg>
+          </div>
+          <div class="cat-card-content">
+            <p class="cat-card-nombre">Pañuelos & Seda</p>
+            <p class="cat-card-sub">Fulares · Chales · Corbatas</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- HISTORIA -->
+  <section class="historia reveal" id="historia">
+    <div class="section-inner">
+      <div class="historia-grid">
+        <div>
+          <p class="section-label">Nuestra historia</p>
+          <h2 class="section-title">Más de cuatro décadas de pasión</h2>
+          <p class="section-lead">Desde 1979 acompañamos los momentos más importantes de nuestros clientes. Cada pieza que seleccionamos, confeccionamos o personalizamos forma parte de una historia única. Porque el verdadero lujo no es solo lo que llevas, sino cómo te hace sentir.</p>
+          <div class="historia-stat-group">
+            <div class="stat-box"><div class="stat-number">45+</div><div class="stat-label">Años de experiencia</div></div>
+            <div class="stat-box"><div class="stat-number">100%</div><div class="stat-label">Calidad artesanal</div></div>
+            <div class="stat-box"><div class="stat-number">A·M</div><div class="stat-label">Todo a medida</div></div>
+            <div class="stat-box"><div class="stat-number">∞</div><div class="stat-label">Personalización</div></div>
+          </div>
+        </div>
+        <div class="historia-visual">
+          <div class="historia-img-wrapper">
+            <span class="historia-monogram">𝕻</span>
+          </div>
+          <div class="historia-badge"><span>1979</span><span>Fundación</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VALORES -->
+  <section class="valores reveal">
+    <div class="section-inner">
+      <p class="section-label">Lo que nos define</p>
+      <h2 class="section-title">Nuestros valores</h2>
+      <div class="valores-grid">
+        <div class="valor-card"><div class="valor-number">01</div><div class="valor-title">Tradición</div><p class="valor-text">Más de 45 años de historia familiar nos avalan. Cada proceso lleva el sello de quien lleva décadas perfeccionándolo con devoción.</p></div>
+        <div class="valor-card"><div class="valor-number">02</div><div class="valor-title">Calidad</div><p class="valor-text">Seleccionamos materiales y proveedores con los más altos estándares. La calidad no es una opción, es nuestra promesa desde el primer día.</p></div>
+        <div class="valor-card"><div class="valor-number">03</div><div class="valor-title">Cercanía</div><p class="valor-text">Todos nuestros clientes son especiales. El trato personalizado no es un servicio extra, es nuestra forma de entender el lujo verdadero.</p></div>
+        <div class="valor-card"><div class="valor-number">04</div><div class="valor-title">Innovación</div><p class="valor-text">Respetamos nuestra historia pero miramos al futuro. Incorporamos nuevas técnicas y estéticas que convierten lo clásico en atemporal.</p></div>
+        <div class="valor-card"><div class="valor-number">05</div><div class="valor-title">Exclusividad</div><p class="valor-text">Cada pieza es única. Ediciones limitadas, diseños personalizados y colecciones que no encontrarás en ningún otro lugar.</p></div>
+        <div class="valor-card"><div class="valor-number">06</div><div class="valor-title">Confianza</div><p class="valor-text">Llevan décadas eligiéndonos para sus momentos más importantes. Esa confianza es nuestro mayor activo y responsabilidad.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICIOS -->
+  <section class="servicios reveal" id="servicios">
+    <div class="section-inner">
+      <p class="section-label">Arte a medida</p>
+      <h2 class="section-title">Servicios exclusivos</h2>
+      <div class="servicios-grid">
+        <div class="servicio-list">
+          <div class="servicio-item"><div class="servicio-icon">✂</div><span class="servicio-name">Sastrería a medida</span></div>
+          <div class="servicio-item"><div class="servicio-icon">👗</div><span class="servicio-name">Modistería y alta costura</span></div>
+          <div class="servicio-item"><div class="servicio-icon">🪡</div><span class="servicio-name">Arreglos y transformaciones</span></div>
+          <div class="servicio-item"><div class="servicio-icon">✦</div><span class="servicio-name">Bordados y personalización</span></div>
+          <div class="servicio-item"><div class="servicio-icon">💌</div><span class="servicio-name">Asesoría de imagen</span></div>
+          <div class="servicio-item"><div class="servicio-icon">🎁</div><span class="servicio-name">Edición exclusiva y regalo</span></div>
+        </div>
+        <div class="servicio-detail">
+          <h3 class="servicio-detail-title">"Cada prenda merece ser única, como quien la lleva."</h3>
+          <p class="servicio-detail-text">Desde el diseño personalizado hasta el último ajuste, nuestros artesanos trabajan con precisión milimétrica para que cada pieza sea exactamente lo que imaginas. Servicio de pruebas en sala privada y confección con los mejores materiales del mercado.</p>
+          <div class="servicio-tags">
+            <span class="tag">Diseño propio</span><span class="tag">Patronaje</span><span class="tag">Confección artesanal</span><span class="tag">Pruebas y ajustes</span><span class="tag">Novias</span><span class="tag">Ceremonia</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACTO -->
+  <section class="contacto reveal" id="contacto">
+    <div class="section-inner">
+      <p class="section-label">Visítanos</p>
+      <h2 class="section-title">Estamos en Jerez</h2>
+      <p class="section-lead">Pide tu cita y vive la experiencia Popolus en persona. Te atendemos con el cuidado que mereces.</p>
+      <div class="contacto-grid">
+        <div class="contacto-info">
+          <div><p class="contacto-item-label">Dirección</p><p class="contacto-item-value">C/ Larga, 23<br>11405 Jerez de la Frontera, Cádiz</p></div>
+          <div><p class="contacto-item-label">Teléfono</p><p class="contacto-item-value">+34 956 36 12 79</p></div>
+          <div><p class="contacto-item-label">Email</p><p class="contacto-item-value">info@popolus1979.com</p></div>
+          <div><p class="contacto-item-label">Horario</p><p class="contacto-item-value">Lunes a Viernes · 10:00 – 20:00<br>Sábados · 10:30 – 14:00</p></div>
+        </div>
+        <form class="contacto-form" onsubmit="handleSubmit(event)">
+          <div class="form-row">
+            <div class="form-group"><label class="form-label">Nombre</label><input type="text" class="form-input" placeholder="Tu nombre" required></div>
+            <div class="form-group"><label class="form-label">Teléfono</label><input type="tel" class="form-input" placeholder="600 000 000"></div>
+          </div>
+          <div class="form-group"><label class="form-label">Email</label><input type="email" class="form-input" placeholder="tu@email.com" required></div>
+          <div class="form-group">
+            <label class="form-label">Motivo</label>
+            <select class="form-input">
+              <option value="" disabled selected>Selecciona un servicio</option>
+              <option>Sastrería a medida</option><option>Complementos y accesorios</option><option>Arreglos de prendas</option><option>Asesoría de imagen</option><option>Otro</option>
+            </select>
+          </div>
+          <div class="form-group"><label class="form-label">Mensaje</label><textarea class="form-input" rows="4" placeholder="Cuéntanos qué necesitas..."></textarea></div>
+          <button type="submit" class="form-btn">Solicitar cita</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+</div><!-- /page-home -->
+
+<!-- ── TIENDA PAGE ── -->
+<div class="page" id="page-tienda">
+  <div class="tienda-page">
+    <div class="tienda-hero">
+      <p class="section-label">Colección 2025</p>
+      <h2 class="section-title">Nuestra Tienda</h2>
+      <p>Piezas únicas seleccionadas con los más altos estándares de calidad y artesanía</p>
+    </div>
+
+    <div class="tienda-body">
+      <!-- Filtros -->
+      <aside class="filtros">
+        <p class="filtros-titulo">Filtrar</p>
+        <div class="filtro-grupo">
+          <p class="filtro-grupo-titulo">Categoría</p>
+          <div class="filtro-opcion"><input type="checkbox" id="f1" checked><label for="f1">Marroquinería</label></div>
+          <div class="filtro-opcion"><input type="checkbox" id="f2" checked><label for="f2">Joyería de lujo</label></div>
+          <div class="filtro-opcion"><input type="checkbox" id="f3" checked><label for="f3">Sombreros & Tocados</label></div>
+          <div class="filtro-opcion"><input type="checkbox" id="f4" checked><label for="f4">Pañuelos & Seda</label></div>
+          <div class="filtro-opcion"><input type="checkbox" id="f5" checked><label for="f5">Cinturones</label></div>
+          <div class="filtro-opcion"><input type="checkbox" id="f6" checked><label for="f6">Prendas a medida</label></div>
+        </div>
+        <div class="filtro-grupo">
+          <p class="filtro-grupo-titulo">Precio (€)</p>
+          <div class="filtro-precio">
+            <input type="number" placeholder="Mín" value="0">
+            <span>—</span>
+            <input type="number" placeholder="Máx" value="500">
+          </div>
+        </div>
+        <div class="filtro-grupo">
+          <p class="filtro-grupo-titulo">Disponibilidad</p>
+          <div class="filtro-opcion"><input type="checkbox" id="fd1" checked><label for="fd1">En stock</label></div>
+          <div class="filtro-opcion"><input type="checkbox" id="fd2"><label for="fd2">A pedido</label></div>
+        </div>
+        <button class="btn-filtrar">Aplicar filtros</button>
+      </aside>
+
+      <!-- Productos -->
+      <div class="productos-zona">
+        <div class="productos-toolbar">
+          <span class="productos-count">12 productos</span>
+          <select class="productos-sort">
+            <option>Destacados</option>
+            <option>Precio: menor a mayor</option>
+            <option>Precio: mayor a menor</option>
+            <option>Novedades</option>
+          </select>
+        </div>
+
+        <div class="productos-grid-tienda" id="productosGrid">
+
+          <!-- PRODUCTO 1 -->
+          <div class="prod-card" onclick="openModal(0)">
+            <div class="prod-img-wrap" style="background:#2a1810;">
+              <div class="prod-img-svg">
+                <svg viewBox="0 0 160 200" width="100" height="130">
+                  <rect x="30" y="60" width="100" height="80" rx="4" fill="none" stroke="#d8a95e" stroke-width="2"/>
+                  <path d="M55 60 Q80 30 105 60" fill="none" stroke="#d8a95e" stroke-width="2"/>
+                  <rect x="50" y="145" width="60" height="4" rx="2" fill="#d8a95e" opacity="0.4"/>
+                  <circle cx="80" cy="100" r="7" fill="none" stroke="#d8a95e" stroke-width="1.5"/>
+                  <line x1="45" y1="90" x2="115" y2="90" stroke="#d8a95e" stroke-width="0.5" opacity="0.3"/>
+                </svg>
+              </div>
+              <span class="prod-badge badge-nuevo">Nuevo</span>
+              <button class="prod-quick" onclick="event.stopPropagation(); addToCart(0)">+ Añadir al carrito</button>
+            </div>
+            <p class="prod-cat">Marroquinería</p>
+            <h3 class="prod-nombre">Bolso Atalaya</h3>
+            <p class="prod-precio">€ 285,00</p>
+          </div>
+
+          <!-- PRODUCTO 2 -->
+          <div class="prod-card" onclick="openModal(1)">
+            <div class="prod-img-wrap" style="background:#1a1208;">
+              <div class="prod-img-svg">
+                <svg viewBox="0 0 160 200" width="100" height="130">
+                  <circle cx="80" cy="75" r="30" fill="none" stroke="#d8a95e" stroke-width="2"/>
+                  <circle cx="80" cy="75" r="18" fill="none" stroke="#d8a95e" stroke-width="1"/>
+                  <circle cx="80" cy="75" r="7" fill="#d8a95e" opacity="0.5"/>
+                  <line x1="80" y1="45" x2="80" y2="30" stroke="#d8a95e" stroke-width="2"/>
+                  <rect x="65" y="108" width="30" height="50" rx="2" fill="none" stroke="#d8a95e" stroke-width="1.5"/>
+                  <line x1="60" y1="125" x2="100" y2="125" stroke="#d8a95e" stroke-width="0.5" opacity="0.4"/>
+                </svg>
+              </div>
+              <span class="prod-badge badge-exclusivo">Exclusivo</span>
+              <button class="prod-quick" onclick="event.stopPropagation(); addToCart(1)">+ Añadir al carrito</button>
+            </div>
+            <p class="prod-cat">Joyería de lujo</p>
+            <h3 class="prod-nombre">Collar Vértice</h3>
+            <p class="prod-precio">€ 420,00</p>
+          </div>
+
+          <!-- PRODUCTO 3 -->
+          <div class="prod-card" onclick="openModal(2)">
+            <div class="prod-img-wrap" style="background:#0f1a20;">
+              <div class="prod-img-svg">
+                <svg viewBox="0 0 160 200" width="100" height="130">
+                  <ellipse cx="80" cy="65" rx="60" ry="25" fill="none" stroke="#d8a95e" stroke-width="2"/>
+                  <rect x="68" y="65" width="24" height="70" fill="none" stroke="#d8a95e" stroke-width="2"/>
+                  <rect x="55" y="133" width="50" height="6" rx="2" fill="#d8a95e" opacity="0.3"/>
+                  <ellipse cx="80" cy="65" rx="35" ry="14" fill="none" stroke="#d8a95e" stroke-width="0.5" opacity="0.4"/>
+                </svg>
+              </div>
+              <span class="prod-badge badge-nuevo">Nuevo</span>
+              <button class="prod-quick" onclick="event.stopPropagation(); addToCart(2)">+ Añadir al carrito</button>
+            </div>
+            <p class="prod-cat">Sombreros & Tocados</p>
+            <h3 class="prod-nombre">Pamela Sevilla</h3>
+            <p class="prod-precio">€ 195,00</p>
+          </div>
+
+          <!-- PRODUCTO 4 -->
+          <div class="prod-card" onclick="openModal(3)">
+            <div class="prod-img-wrap" style="background:#1a0d15;">
+              <div class="prod-img-svg">
+                <svg viewBox="0 0 160 200" width="100" height="130">
+                  <path d="M30 50 Q80 90 130 50 L120 170 Q80 185 40 170 Z" fill="none" stroke="#d8a95e" stroke-width="2"/>
+                  <path d="M55 70 Q80 95 105 70" fill="none" stroke="#d8a95e" stroke-width="1.5"/>
+                  <path d="M48 105 Q80 125 112 105" fill="none" stroke="#d8a95e" stroke-width="1"/>
+                  <path d="M43 138 Q80 155 117 138" fill="none" stroke="#d8a95e" stroke-width="1"/>
+                </svg>
+              </div>
+              <button class="prod-quick" onclick="event.stopPropagation(); addToCart(3)">+ Añadir al carrito</button>
+            </div>
+            <p class="prod-cat">Pañuelos & Seda</p>
+            <h3 class="prod-nombre">Fular Jerez</h3>
+            <p class="prod-precio">€ 110,00 <span class="prod-precio-original">€ 145,00</span></p>
+          </div>
+
+          <!-- PRODUCTO 5 -->
+          <div class="prod-card" onclick="openModal(4)">
+            <div class="prod-img-wrap" style="background:#1c1008;">
+              <div class="prod-img-svg">
+                <svg viewBox="0 0 160 200" width="100" height="130">
+                  <rect x="35" y="80" width="90" height="20" rx="10" fill="none" stroke="#d8a95e" stroke-width="2"/>
+                  <rect x="55" y="92" width="20" height="28" rx="3" fill="none" stroke="#d8a95e" stroke-width="1.5"/>
+                  <circle cx="65" cy="106" r="6" fill="none" stroke="#d8a95e" stroke-width="1.5"/>
+                  <line x1="35" y1="90" x2="15" y2="90" stroke="#d8a95e" stroke-width="2"/>
+                  <line x1="125" y1="90" x2="145" y2="90" stroke="#d8a95e" stroke-width="2"/>
+                </svg>
+              </div>
+              <span class="prod-badge badge-exclusivo">Exclusivo</span>
+              <button class="prod-quick" onclick="event.stopPropagation(); addToCart(4)">+ Añadir al carrito</button>
+            </div>
+            <p class="prod-cat">Cinturones</p>
+            <h3 class="prod-nombre">Cinturón Clásico</h3>
+            <p class="prod-precio">€ 145,00</p>
+          </div>
+
+          <!-- PRODUCTO 6 -->
+          <div class="prod-card" onclick="openModal(5)">
+            <div class="prod-img-wrap" style="background:#0d1520;">
+              <div class="prod-img-svg">
+                <svg viewBox="0 0 160 200" width="100" height="130">
+                  <path d="M40 40 L120 40 L130 80 L110 80 L110 175 L50 175 L50 80 L30 80 Z" fill="none" stroke="#d8a95e" stroke-width="2"/>
+                  <line x1="80" y1="40" x2="80" y2="80" stroke="#d8a95e" stroke-width="1.5"/>
+                  <line x1="50" y1="110" x2="110" y2="110" stroke="#d8a95e" stroke-width="0.5" opacity="0.4"/>
+                  <line x1="50" y1="135" x2="110" y2="135" stroke="#d8a95e" stroke-width="0.5" opacity="0.4"/>
+                  <line x1="50" y1="155" x2="110" y2="155" stroke="#d8a95e" stroke-width="0.5" opacity="0.4"/>
+                </svg>
+              </div>
+              <span class="prod-badge badge-medida">A medida</span>
+              <button class="prod-quick" onclick="event.stopPropagation(); addToCart(5)">+ Añadir al carrito</button>
+            </div>
+            <p class="prod-cat">Prendas a medida</p>
+            <h3 class="prod-nombre">Traje Caballero</h3>
+            <p class="prod-precio">Desde € 850,00</p>
+          </div>
+
+          <!-- PRODUCTO 7 -->
+          <div class="prod-card" onclick="openModal(6)">
+            <div class="prod-img-wrap" style="background:#201510;">
+              <div class="prod-img-svg">
+                <svg viewBox="0 0 160 200" width="100" height="130">
+                  <path d="M50 50 Q80 30 110 50 L120 160 Q80 175 40 160 Z" fill="none" stroke="#d8a95e" stroke-width="2"/>
+                  <path d="M60 75 Q80 65 100 75" fill="none" stroke="#d8a95e" stroke-width="1.5"/>
+                  <ellipse cx="80" cy="100" rx="15" ry="20" fill="none" stroke="#d8a95e" stroke-width="1"/>
+                  <line x1="55" y1="130" x2="105" y2="130" stroke="#d8a95e" stroke-width="0.5" opacity="0.4"/>
+                </svg>
+              </div>
+              <button class="prod-quick" onclick="event.stopPropagation(); addToCart(6)">+ Añadir al carrito</button>
+            </div>
+            <p class="prod-cat">Marroquinería</p>
+            <h3 class="prod-nombre">Cartera Piel Nappa</h3>
+            <p class="prod-precio">€ 165,00</p>
+          </div>
+
+          <!-- PRODUCTO 8 -->
+          <div class="prod-card" onclick="openModal(7)">
+            <div class="prod-img-wrap" style="background:#0e1810;">
+              <div class="prod-img-svg">
+                <svg viewBox="0 0 160 200" width="100" height="130">
+                  <circle cx="80" cy="80" r="35" fill="none" stroke="#d8a95e" stroke-width="2"/>
+                  <circle cx="80" cy="80" r="22" fill="none" stroke="#d8a95e" stroke-width="1"/>
+                  <circle cx="80" cy="80" r="10" fill="#d8a95e" opacity="0.3"/>
+                  <line x1="80" y1="45" x2="80" y2="115" stroke="#d8a95e" stroke-width="0.5" opacity="0.3"/>
+                  <line x1="45" y1="80" x2="115" y2="80" stroke="#d8a95e" stroke-width="0.5" opacity="0.3"/>
+                  <rect x="65" y="118" width="30" height="40" rx="2" fill="none" stroke="#d8a95e" stroke-width="1.5"/>
+                </svg>
+              </div>
+              <span class="prod-badge badge-exclusivo">Exclusivo</span>
+              <button class="prod-quick" onclick="event.stopPropagation(); addToCart(7)">+ Añadir al carrito</button>
+            </div>
+            <p class="prod-cat">Joyería de lujo</p>
+            <h3 class="prod-nombre">Anillo Heirloom</h3>
+            <p class="prod-precio">€ 380,00</p>
+          </div>
+
+          <!-- PRODUCTO 9 -->
+          <div class="prod-card" onclick="openModal(8)">
+            <div class="prod-img-wrap" style="background:#15100f;">
+              <div class="prod-img-svg">
+                <svg viewBox="0 0 160 200" width="100" height="130">
+                  <path d="M25 70 Q80 40 135 70 L125 160 Q80 180 35 160 Z" fill="none" stroke="#d8a95e" stroke-width="2"/>
+                  <path d="M50 85 Q80 70 110 85" fill="none" stroke="#d8a95e" stroke-width="1.5"/>
+                  <path d="M45 110 Q80 95 115 110" fill="none" stroke="#d8a95e" stroke-width="1"/>
+                  <ellipse cx="80" cy="140" rx="20" ry="8" fill="none" stroke="#d8a95e" stroke-width="1" opacity="0.4"/>
+                </svg>
+              </div>
+              <span class="prod-badge badge-nuevo">Nuevo</span>
+              <button class="prod-quick" onclick="event.stopPropagation(); addToCart(8)">+ Añadir al carrito</button>
+            </div>
+            <p class="prod-cat">Sombreros & Tocados</p>
+            <h3 class="prod-nombre">Tocado Flamenca</h3>
+            <p class="prod-precio">€ 240,00</p>
+          </div>
+
+          <!-- PRODUCTO 10 -->
+          <div class="prod-card" onclick="openModal(9)">
+            <div class="prod-img-wrap" style="background:#1a1530;">
+              <div class="prod-img-svg">
+                <svg viewBox="0 0 160 200" width="100" height="130">
+                  <path d="M40 40 L80 30 L120 40 L115 155 L80 165 L45 155 Z" fill="none" stroke="#d8a95e" stroke-width="2"/>
+                  <path d="M55 75 Q80 60 105 75" fill="none" stroke="#d8a95e" stroke-width="1.5"/>
+                  <path d="M50 100 Q80 88 110 100" fill="none" stroke="#d8a95e" stroke-width="1"/>
+                  <path d="M50 125 Q80 115 110 125" fill="none" stroke="#d8a95e" stroke-width="1"/>
+                  <circle cx="80" cy="50" r="5" fill="#d8a95e" opacity="0.5"/>
+                </svg>
+              </div>
+              <span class="prod-badge badge-medida">A medida</span>
+              <button class="prod-quick" onclick="event.stopPropagation(); addToCart(9)">+ Añadir al carrito</button>
+            </div>
+            <p class="prod-cat">Prendas a medida</p>
+            <h3 class="prod-nombre">Vestido de Fiesta</h3>
+            <p class="prod-precio">Desde € 650,00</p>
+          </div>
+
+          <!-- PRODUCTO 11 -->
+          <div class="prod-card" onclick="openModal(10)">
+            <div class="prod-img-wrap" style="background:#200e0a;">
+              <div class="prod-img-svg">
+                <svg viewBox="0 0 160 200" width="100" height="130">
+                  <path d="M50 40 L110 40 L115 80 L100 80 L100 90 L60 90 L60 80 L45 80 Z" fill="none" stroke="#d8a95e" stroke-width="2"/>
+                  <rect x="60" y="90" width="40" height="75" rx="2" fill="none" stroke="#d8a95e" stroke-width="2"/>
+                  <line x1="60" y1="115" x2="100" y2="115" stroke="#d8a95e" stroke-width="0.5" opacity="0.4"/>
+                  <line x1="60" y1="138" x2="100" y2="138" stroke="#d8a95e" stroke-width="0.5" opacity="0.4"/>
+                  <rect x="72" y="55" width="16" height="20" rx="2" fill="none" stroke="#d8a95e" stroke-width="1.5"/>
+                </svg>
+              </div>
+              <button class="prod-quick" onclick="event.stopPropagation(); addToCart(10)">+ Añadir al carrito</button>
+            </div>
+            <p class="prod-cat">Marroquinería</p>
+            <h3 class="prod-nombre">Bolso de Mano Rosaleda</h3>
+            <p class="prod-precio">€ 320,00</p>
+          </div>
+
+          <!-- PRODUCTO 12 -->
+          <div class="prod-card" onclick="openModal(11)">
+            <div class="prod-img-wrap" style="background:#0a1820;">
+              <div class="prod-img-svg">
+                <svg viewBox="0 0 160 200" width="100" height="130">
+                  <path d="M60 40 Q80 20 100 40 L120 160 Q80 175 40 160 Z" fill="none" stroke="#d8a95e" stroke-width="2"/>
+                  <line x1="60" y1="80" x2="100" y2="80" stroke="#d8a95e" stroke-width="1.5"/>
+                  <line x1="55" y1="110" x2="105" y2="110" stroke="#d8a95e" stroke-width="1"/>
+                  <line x1="50" y1="138" x2="110" y2="138" stroke="#d8a95e" stroke-width="1"/>
+                  <circle cx="80" cy="55" r="8" fill="none" stroke="#d8a95e" stroke-width="1.5"/>
+                </svg>
+              </div>
+              <span class="prod-badge badge-exclusivo">Exclusivo</span>
+              <button class="prod-quick" onclick="event.stopPropagation(); addToCart(11)">+ Añadir al carrito</button>
+            </div>
+            <p class="prod-cat">Prendas a medida</p>
+            <h3 class="prod-nombre">Capa Ceremonial</h3>
+            <p class="prod-precio">Desde € 480,00</p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div><!-- /page-tienda -->
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">
+      <span class="footer-logo-p">𝕻</span>
+      <span class="footer-logo-name">Popolus 1979</span>
+    </div>
+    <p class="footer-copy">© 2025 Popolus 1979 · Todos los derechos reservados</p>
+    <div class="footer-social">
+      <a href="#">Instagram</a>
+      <a href="#">Facebook</a>
+      <a href="#">Pinterest</a>
+    </div>
+  </div>
+</footer>
+
+<!-- ── MODAL PRODUCTO ── -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModalOutside(event)">
+  <div class="modal" id="modal" style="position:relative;">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="modal-img" id="modalImg"></div>
+    <div class="modal-info">
+      <p class="modal-cat" id="modalCat"></p>
+      <h2 class="modal-nombre" id="modalNombre"></h2>
+      <p class="modal-precio" id="modalPrecio"></p>
+      <p class="modal-desc" id="modalDesc"></p>
+      <div class="modal-detalles" id="modalDetalles"></div>
+      <div>
+        <p class="filtro-grupo-titulo" style="margin-bottom:0.75rem;">Talla / Medida</p>
+        <div class="modal-tallas" id="modalTallas"></div>
+      </div>
+      <button class="modal-add" id="modalAddBtn">Añadir al carrito</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── CARRITO DRAWER ── -->
+<div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+<div class="cart-drawer" id="cartDrawer">
+  <div class="cart-header">
+    <span class="cart-title">Tu Selección</span>
+    <button class="cart-close" onclick="toggleCart()">✕</button>
+  </div>
+  <div class="cart-items-list" id="cartItemsList">
+    <div class="cart-empty">
+      <div class="cart-empty-icon">𝕻</div>
+      <p>Tu carrito está vacío.<br>Descubre nuestras piezas exclusivas.</p>
+    </div>
+  </div>
+  <div class="cart-footer" id="cartFooter" style="display:none;">
+    <div class="cart-subtotal">
+      <span>Subtotal</span>
+      <span id="cartTotal">€ 0,00</span>
+    </div>
+    <p class="cart-nota">Envío gratuito en pedidos superiores a 150€. Los impuestos se calculan en el pago.</p>
+    <button class="cart-checkout" onclick="showToast('✦ Procesando tu pedido...')">Finalizar compra</button>
+  </div>
+</div>
+
+<!-- ── TOAST ── -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ── DATOS PRODUCTOS ──
+const productos = [
+  { cat:'Marroquinería', nombre:'Bolso Atalaya', precio:'€ 285,00', precioNum:285, desc:'Bolso de piel vacuna curtida al vegetal, costuras a mano con hilo de seda. Interior forrado en suede con dos compartimentos y bolsillo exterior con cierre magnético dorado. Fabricado artesanalmente en nuestro taller de Jerez.', detalles:'<strong>Material:</strong> Piel vacuna curtida al vegetal<br><strong>Medidas:</strong> 32×24×12 cm<br><strong>Color:</strong> Cognac, Negro, Burdeos<br><strong>Origen:</strong> Hecho a mano en Jerez', tallas:['Único'], bg:'#2a1810', svgId:0 },
+  { cat:'Joyería de lujo', nombre:'Collar Vértice', precio:'€ 420,00', precioNum:420, desc:'Collar de plata de ley 925 bañado en oro de 18K con colgante geométrico de piedra de ónix negro. Diseño exclusivo de la colección Geometría Andaluza. Cadena de 45 cm ajustable.', detalles:'<strong>Material:</strong> Plata 925 · Baño oro 18K<br><strong>Piedra:</strong> Ónix negro natural<br><strong>Longitud:</strong> 42-48 cm ajustable<br><strong>Incluye:</strong> Estuche y certificado', tallas:['42 cm','45 cm','48 cm'], bg:'#1a1208', svgId:1 },
+  { cat:'Sombreros & Tocados', nombre:'Pamela Sevilla', precio:'€ 195,00', precioNum:195, desc:'Pamela de ala ancha en sisal natural con detalle de cinta de grogrén en color granate. Tiro estival, perfecta para eventos de tarde y ceremonias de verano. Ala de 14 cm, cuidadosamente moldeable.', detalles:'<strong>Material:</strong> Sisal natural · Cinta grogrén<br><strong>Ala:</strong> 14 cm<br><strong>Colores:</strong> Natural, Crudo, Arena<br><strong>Servicio:</strong> Personalización de cinta incluida', tallas:['S (55cm)','M (57cm)','L (59cm)'], bg:'#0f1a20', svgId:2 },
+  { cat:'Pañuelos & Seda', nombre:'Fular Jerez', precio:'€ 110,00', precioNum:110, desc:'Fular en seda pura de 90×90 cm con estampado exclusivo inspirado en los mosaicos de la Alhambra. Orillo a mano, acabado en rollado. Edición limitada de 50 unidades numeradas.', detalles:'<strong>Material:</strong> Seda pura 100%<br><strong>Medidas:</strong> 90×90 cm<br><strong>Edición:</strong> Limitada · 50 uds.<br><strong>Cuidados:</strong> Lavado en seco recomendado', tallas:['Único'], bg:'#1a0d15', svgId:3 },
+  { cat:'Cinturones', nombre:'Cinturón Clásico', precio:'€ 145,00', precioNum:145, desc:'Cinturón de piel de becerro curtida al vegetal con hebilla en latón dorado envejecido. Disponible en ancho 3 cm y 4 cm. Longitud personalizable bajo encargo en 48 horas.', detalles:'<strong>Material:</strong> Piel de becerro curtida<br><strong>Hebilla:</strong> Latón dorado envejecido<br><strong>Anchos:</strong> 3 cm y 4 cm<br><strong>Medida:</strong> Personalizable', tallas:['85','90','95','100','105'], bg:'#1c1008', svgId:4 },
+  { cat:'Prendas a medida', nombre:'Traje Caballero', precio:'Desde € 850,00', precioNum:850, desc:'Traje de caballero confeccionado enteramente a mano en nuestro taller. Telas seleccionadas de las mejores casas italianas e inglesas. Incluye tres pruebas de patronaje y ajuste final.', detalles:'<strong>Confección:</strong> Enteramente a mano<br><strong>Pruebas:</strong> 3 sesiones incluidas<br><strong>Plazo:</strong> 4-6 semanas<br><strong>Incluye:</strong> Chaleco y dos pares de pantalón', tallas:['A medida'], bg:'#0d1520', svgId:5 },
+  { cat:'Marroquinería', nombre:'Cartera Piel Nappa', precio:'€ 165,00', precioNum:165, desc:'Cartera compacta en piel nappa italiana con interior en piel de cordero. Dispone de 8 tarjeteros, 2 compartimentos para billetes y monedero interior con cierre de botón.', detalles:'<strong>Material:</strong> Piel nappa italiana<br><strong>Interior:</strong> Piel de cordero<br><strong>Capacidad:</strong> 8 tarjetas · monedero<br><strong>Medidas:</strong> 19×10 cm cerrada', tallas:['Único'], bg:'#201510', svgId:6 },
+  { cat:'Joyería de lujo', nombre:'Anillo Heirloom', precio:'€ 380,00', precioNum:380, desc:'Anillo en oro amarillo de 18K con diamante central de 0,15 quilates talla brillante y detalles de esmalte granate. Pieza de herencia diseñada para perdurar generaciones. Puede personalizarse con grabado interior.', detalles:'<strong>Material:</strong> Oro amarillo 18K<br><strong>Piedra:</strong> Diamante 0,15 ct<br><strong>Certificado:</strong> GIA incluido<br><strong>Grabado:</strong> Personalizable sin coste', tallas:['14','15','16','17','18','19'], bg:'#0e1810', svgId:7 },
+  { cat:'Sombreros & Tocados', nombre:'Tocado Flamenca', precio:'€ 240,00', precioNum:240, desc:'Tocado de flamenca con base de fascinator en terciopelo granate, flores de tela y plumas de marabú. Diseño exclusivo para eventos, ferias y ceremonias. Sujeción con peineta dorada y pasador invisible.', detalles:'<strong>Material:</strong> Terciopelo · Plumas marabú<br><strong>Sujeción:</strong> Peineta dorada<br><strong>Uso:</strong> Eventos · Feria · Ceremonia<br><strong>Servicio:</strong> Prueba en tienda disponible', tallas:['Único'], bg:'#15100f', svgId:8 },
+  { cat:'Prendas a medida', nombre:'Vestido de Fiesta', precio:'Desde € 650,00', precioNum:650, desc:'Vestido de fiesta confeccionado a medida en crepé georgette de seda. Diseño personalizado con patronaje propio. Disponible en más de 40 tejidos y colores. Incluye dos pruebas de ajuste en nuestro salón privado.', detalles:'<strong>Material:</strong> Crepé georgette de seda<br><strong>Pruebas:</strong> 2 sesiones incluidas<br><strong>Plazo:</strong> 3-4 semanas<br><strong>Personalización:</strong> Total', tallas:['A medida'], bg:'#1a1530', svgId:9 },
+  { cat:'Marroquinería', nombre:'Bolso de Mano Rosaleda', precio:'€ 320,00', precioNum:320, desc:'Bolso de mano en piel de serpiente vegana de alta gama con estructura rígida. Cierre de presión dorado, asa de cadena en latón y bandolera extraíble. Ideal para eventos y ocasiones especiales.', detalles:'<strong>Material:</strong> Piel vegana serpiente<br><strong>Cierre:</strong> Presión dorada · Cadena latón<br><strong>Incluye:</strong> Bandolera extraíble<br><strong>Medidas:</strong> 22×14×8 cm', tallas:['Único'], bg:'#200e0a', svgId:10 },
+  { cat:'Prendas a medida', nombre:'Capa Ceremonial', precio:'Desde € 480,00', precioNum:480, desc:'Capa ceremonial en paño de lana merino con forro de seda jacquard. Cierre de gancho dorado artesanal y bordado del monograma del cliente. Prenda de representación para eventos de máxima distinción.', detalles:'<strong>Material:</strong> Paño lana merino<br><strong>Forro:</strong> Seda jacquard<br><strong>Bordado:</strong> Monograma incluido<br><strong>Plazo:</strong> 2-3 semanas', tallas:['S','M','L','XL','A medida'], bg:'#0a1820', svgId:11 }
+];
+
+// ── NAVEGACIÓN ──
+function showPage(page) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + page).classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+// ── MODAL ──
+let currentProduct = null;
+
+function openModal(idx) {
+  currentProduct = idx;
+  const p = productos[idx];
+  document.getElementById('modalCat').textContent = p.cat;
+  document.getElementById('modalNombre').textContent = p.nombre;
+  document.getElementById('modalPrecio').textContent = p.precio;
+  document.getElementById('modalDesc').textContent = p.desc;
+  document.getElementById('modalDetalles').innerHTML = p.detalles;
+
+  const tallas = document.getElementById('modalTallas');
+  tallas.innerHTML = p.tallas.map((t,i) =>
+    `<button class="talla-btn${i===0?' selected':''}" onclick="selectTalla(this)">${t}</button>`
+  ).join('');
+
+  // imagen SVG igual que la tarjeta
+  document.getElementById('modalImg').style.background = p.bg;
+  document.getElementById('modalImg').innerHTML = document.querySelectorAll('.prod-img-svg')[idx].innerHTML;
+
+  document.getElementById('modalAddBtn').onclick = () => { addToCart(idx); closeModal(); };
+  document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function closeModalOutside(e) {
+  if (e.target === document.getElementById('modalOverlay')) closeModal();
+}
+
+function selectTalla(btn) {
+  btn.closest('.modal-tallas').querySelectorAll('.talla-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+}
+
+// ── CARRITO ──
+let cart = [];
+
+function addToCart(idx) {
+  const p = productos[idx];
+  const existing = cart.find(i => i.idx === idx);
+  if (existing) {
+    existing.qty++;
+  } else {
+    cart.push({ idx, qty: 1, nombre: p.nombre, precio: p.precioNum, cat: p.cat, bg: p.bg, svgId: p.svgId });
+  }
+  updateCart();
+  showToast('✦ ' + p.nombre + ' añadido');
+}
+
+function removeFromCart(idx) {
+  cart = cart.filter(i => i.idx !== idx);
+  updateCart();
+}
+
+function updateCart() {
+  const count = cart.reduce((s,i) => s + i.qty, 0);
+  const countEl = document.getElementById('cartCount');
+  countEl.textContent = count;
+  countEl.classList.toggle('visible', count > 0);
+
+  const list = document.getElementById('cartItemsList');
+  const footer = document.getElementById('cartFooter');
+
+  if (cart.length === 0) {
+    list.innerHTML = `<div class="cart-empty"><div class="cart-empty-icon">𝕻</div><p>Tu carrito está vacío.<br>Descubre nuestras piezas exclusivas.</p></div>`;
+    footer.style.display = 'none';
+    return;
+  }
+
+  footer.style.display = 'block';
+  const svgs = document.querySelectorAll('.prod-img-svg');
+
+  list.innerHTML = cart.map(item => `
+    <div class="cart-item">
+      <div class="cart-item-img" style="background:${item.bg}">
+        ${svgs[item.idx] ? svgs[item.idx].innerHTML : ''}
+      </div>
+      <div class="cart-item-info">
+        <p class="cart-item-cat">${item.cat}</p>
+        <p class="cart-item-name">${item.nombre}</p>
+        <p class="cart-item-talla">Cantidad: ${item.qty}</p>
+        <div class="cart-item-bottom">
+          <span class="cart-item-precio">€ ${(item.precio * item.qty).toLocaleString('es-ES', {minimumFractionDigits:2})}</span>
+          <button class="cart-item-remove" onclick="removeFromCart(${item.idx})">✕</button>
+        </div>
+      </div>
+    </div>
+  `).join('');
+
+  const total = cart.reduce((s,i) => s + i.precio * i.qty, 0);
+  document.getElementById('cartTotal').textContent = '€ ' + total.toLocaleString('es-ES', {minimumFractionDigits:2});
+}
+
+function toggleCart() {
+  const drawer = document.getElementById('cartDrawer');
+  const overlay = document.getElementById('cartOverlay');
+  drawer.classList.toggle('open');
+  overlay.classList.toggle('open');
+  document.body.style.overflow = drawer.classList.contains('open') ? 'hidden' : '';
+}
+
+// ── TOAST ──
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2800);
+}
+
+// ── FORM ──
+function handleSubmit(e) {
+  e.preventDefault();
+  const btn = e.target.querySelector('.form-btn');
+  btn.textContent = '✓ Solicitud enviada';
+  btn.style.background = '#38090B';
+  btn.style.color = '#d8a95e';
+  setTimeout(() => { btn.textContent = 'Solicitar cita'; btn.style.background = ''; btn.style.color = ''; e.target.reset(); }, 3000);
+}
+
+// ── SCROLL REVEAL ──
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
